@@ -12,6 +12,7 @@ public class PacienteDTO {
 	private String apellidos;
 	@JsonSerialize(using = ToStringSerializer.class)
 	private LocalDateTime fechaNacimiento;
+	private TipoDocumentoDTO tipoDocumento;
 	private String numeroDocumento;
 	private String direccion;
 	private String telefono;
@@ -65,6 +66,13 @@ public class PacienteDTO {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public TipoDocumentoDTO getTipoDocumento() {
+		return tipoDocumento;
+	}
+	public void setTipoDocumento(TipoDocumentoDTO tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}
+	
 	
 	
 

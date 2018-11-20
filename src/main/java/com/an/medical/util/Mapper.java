@@ -8,6 +8,7 @@ import com.an.medical.dto.EspecialidadDTO;
 import com.an.medical.dto.ExamenDTO;
 import com.an.medical.dto.MedicoDTO;
 import com.an.medical.dto.PacienteDTO;
+import com.an.medical.dto.TipoDocumentoDTO;
 import com.an.medical.model.Consulta;
 import com.an.medical.model.ConsultaExamen;
 import com.an.medical.model.DetalleConsulta;
@@ -15,13 +16,15 @@ import com.an.medical.model.Especialidad;
 import com.an.medical.model.Examen;
 import com.an.medical.model.Medico;
 import com.an.medical.model.Paciente;
+import com.an.medical.model.TipoDocumento;
+
 
 public class Mapper {
 	
 	public static Consulta getConsultaEntityFromDTO(ConsultaDTO dto) {
 		Consulta c = new Consulta();
 		c.setEspecialidad(getEspecialidadEntityFromDTO(dto.getEspecialidad()));
-		c.setPaciente(getPacienteEntityFromDTO(dto.getPaciente()));
+		c.setPaciente(getEntityFromDTO(dto.getPaciente()));
 		c.setMedico(getMedicoEntityFromDTO(dto.getMedico()));
 		c.setFecha(dto.getFecha());
 		return c;
@@ -33,9 +36,17 @@ public class Mapper {
 		return e;
 	}
 	
-	public static Paciente getPacienteEntityFromDTO(PacienteDTO dto) {
+	public static Paciente getEntityFromDTO(PacienteDTO dto) {
 		Paciente p = new Paciente();
 		p.setIdPaciente(dto.getIdPaciente());
+		p.setNombres(dto.getNombres());
+		p.setApellidos(dto.getApellidos());
+		p.setFechaNacimiento(dto.getFechaNacimiento());
+		p.setNumeroDocumento(dto.getNumeroDocumento());
+		p.setTipoDocumento( getEntityFromDTO(dto.getTipoDocumento()));
+		p.setDireccion(dto.getDireccion());
+		p.setEmail(dto.getEmail());
+		p.setTelefono(dto.getTelefono());
 		return p;
 		
 	}
@@ -67,6 +78,16 @@ public class Mapper {
 	public static Examen getEntityFromDTO(ExamenDTO dto) {
 		Examen entity = new Examen();
 		entity.setIdExamen(dto.getIdExamen());
+		entity.setNombre(dto.getNombre());
+		entity.setDescripcion(dto.getDescripcion());
+		return entity;
+		
+	}
+	
+	
+	public static TipoDocumento getEntityFromDTO(TipoDocumentoDTO dto) {
+		TipoDocumento entity = new TipoDocumento();
+		entity.setIdTipoDocumento(dto.getIdTipoDocumento());
 		entity.setNombre(dto.getNombre());
 		entity.setDescripcion(dto.getDescripcion());
 		return entity;

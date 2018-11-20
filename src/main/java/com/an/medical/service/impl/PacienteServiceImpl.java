@@ -1,13 +1,16 @@
 package com.an.medical.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.an.medical.dao.IPacienteDAO;
+import com.an.medical.dto.PacienteDTO;
 import com.an.medical.model.Paciente;
 import com.an.medical.service.IPacienteService;
+import com.an.medical.util.Mapper;
 
 
 @Service
@@ -17,21 +20,24 @@ public class PacienteServiceImpl implements IPacienteService{
 	IPacienteDAO dao;
 	
 	@Override
-	public Paciente registrar(Paciente t) {
-		// TODO Auto-generated method stub
-		return dao.save(t);
+	public PacienteDTO registrar(PacienteDTO t) {
+		Paciente paciente= Mapper.getEntityFromDTO(t);
+		return Mapper.getDTOFromEntity(dao.save(paciente));
 	}
 
 	@Override
-	public List<Paciente> obtenerTodos() {
-		// TODO Auto-generated method stub
-		return dao.findAll();
+	public List<PacienteDTO> obtenerTodos() {
+		List<PacienteDTO> pacientes = new ArrayList<PacienteDTO>();
+		dao.findAll().forEach(data -> {
+			pacientes.add(Mapper.getDTOFromEntity(data));
+		});
+		return pacientes;
 	}
 
 	@Override
-	public Paciente actualizar(Paciente t) {
-		// TODO Auto-generated method stub
-		return dao.save(t);
+	public PacienteDTO actualizar(PacienteDTO t) {
+		Paciente paciente= Mapper.getEntityFromDTO(t);
+		return Mapper.getDTOFromEntity(dao.save(paciente));
 	}
 
 	@Override
@@ -41,9 +47,8 @@ public class PacienteServiceImpl implements IPacienteService{
 	}
 
 	@Override
-	public Paciente obtenerPorId(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
+	public PacienteDTO obtenerPorId(Integer id) {
+		return Mapper.getDTOFromEntity(dao.findOne(id));
 	}
 
 }
